@@ -1,0 +1,234 @@
+local shape = {}
+local make_ok = {}
+
+minetest.register_node("myappliances:machine_top", {
+--	description = "Appliance Machine Top",
+	tiles = {
+		"myappliances_dishwasher_sides.png",
+		},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky=2},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, -0.375, 0.5, 0.5},
+			{0.375, -0.5, -0.5, 0.5, 0.5, 0.5},
+			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.25, -0.5, -0.375, -0.1875, 0.5, -0.3125},
+			{0.1875, -0.5, -0.375, 0.25, 0.5, -0.3125},
+			{0.1875, -0.5, 0.0625, 0.25, 0.5, 0.125},
+			{-0.25, -0.5, 0.0625, -0.1875, 0.5, 0.125},
+		}
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{0, 0, 0, 0, 0, 0},
+		}
+	},
+})
+
+minetest.register_node("myappliances:machine", {
+	description = "Appliance Machine",
+	tiles = {
+		"myappliances_dishwasher_sides.png",
+		},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky=2},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, -0.375, 0.5, 0.5},
+			{0.375, -0.5, -0.5, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, -0.5, 0.5, -0.375, 0.5},
+			{-0.5, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.25, -0.5, -0.375, -0.1875, 0.5, -0.3125},
+			{0.1875, -0.5, -0.375, 0.25, 0.5, -0.3125},
+			{0.1875, -0.5, 0.0625, 0.25, 0.5, 0.125},
+			{-0.25, -0.5, 0.0625, -0.1875, 0.5, 0.125},
+		}
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 1.5, 0.5},
+		}
+	},
+on_place = function(itemstack, placer, pointed_thing)
+        local pos = pointed_thing.above
+        if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air" then
+            minetest.chat_send_player( placer:get_player_name(), "Not enough space to place this!" )
+            return
+        end
+        return minetest.item_place(itemstack, placer, pointed_thing)
+    end,
+    
+after_destruct = function(pos, oldnode)
+		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+	end,
+
+after_place_node = function(pos, placer)
+
+	minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = "myappliances:machine_top", 		param2=minetest.dir_to_facedir(placer:get_look_dir())});
+
+	local meta = minetest.get_meta(pos);
+	meta:set_string("owner",  (placer:get_player_name() or ""));
+	meta:set_string("infotext",  "Appliance Machine (owned by " .. (placer:get_player_name() or "") .. ")");
+	
+	local inv = meta:get_inventory()
+	if not inv:is_empty("ingot") then
+		return false
+	elseif not inv:is_empty("res") then
+		return false
+	end
+	return true
+end,
+
+can_dig = function(pos,player)
+	local meta = minetest.get_meta(pos);
+	local inv = meta:get_inventory()
+	if player:get_player_name() == meta:get_string("owner") and
+	inv:is_empty("plastic") and
+	inv:is_empty("copper") and
+	inv:is_empty("steel") and
+	inv:is_empty("res") then
+		return true
+	else
+	return false
+	end
+end,
+
+on_construct = function(pos)
+		
+	local meta = minetest.get_meta(pos)
+	meta:set_string("formspec", "invsize[10,11;]"..
+		"background[-0.15,-0.25;10.40,11.75;myappliances_background.png]"..
+		
+		"label[1,4;Plastic]"..
+		"list[current_name;plastic;1,5;1,1;]"..
+		
+		"label[2.25,4;Copper Wire]"..
+		"list[current_name;copper;2.5,5;1,1;]"..
+		
+		"label[4,4;Steel Sheet]"..
+		"list[current_name;steel;4,5;1,1;]"..
+		
+		"label[6,4;Output]"..
+		"list[current_name;res;6,5;1,1;]"..
+		
+		
+		"label[1,1;Pick Your Appliance]"..
+		--row 1
+		--row 4
+		"image_button[1,1.5;1,1;myappliances_mach19.png;furn19; ]"..
+		"image_button[2,1.5;1,1;myappliances_mach20.png;furn20; ]"..
+		"image_button[3,1.5;1,1;myappliances_mach18.png;furn18; ]"..
+
+		"list[current_player;main;1,7;8,4;]")
+	meta:set_string("infotext", "Furniture Machine")
+	local inv = meta:get_inventory()
+	inv:set_size("plastic", 1)
+	inv:set_size("copper", 1)
+	inv:set_size("steel", 1)
+	inv:set_size("res", 1)
+end,
+
+on_receive_fields = function(pos, formname, fields, sender)
+	local meta = minetest.get_meta(pos)
+	local inv = meta:get_inventory()
+
+if fields["furn18"]
+or fields["furn19"]
+or fields["furn20"]
+then
+
+	if fields["furn18"] then
+		make_ok = "0"
+		shape = "myappliances:fridge"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn19"] then
+		make_ok = "0"
+		shape = "myappliances:stove"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn20"] then
+		make_ok = "0"
+		shape = "myappliances:dishwasher"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+		local stack1 = inv:get_stack("plastic", 1)
+		local stack2 = inv:get_stack("copper", 1)
+		local stack3 = inv:get_stack("steel", 1)
+		local resstack = inv:get_stack("res", 1)
+
+
+------------------------------------------------------------------------------------------
+--register nodes here
+------------------------------------------------------------------------------------------
+		if stack1:get_name()=="mystreets:plastic" and
+		stack2:get_name()=="mypress:copper_wire" and
+		stack3:get_name()=="mypress:sheet_steel" then
+				make_ok = "1"
+		end
+
+----------------------------------------------------------------------------
+    		if make_ok == "1" then
+				inv:add_item("res",shape)
+				stack1:take_item()
+				stack2:take_item()
+				stack3:take_item()
+				inv:set_stack("plastic",1,stack1)
+				inv:set_stack("copper",1,stack2)
+				inv:set_stack("steel",1,stack3)
+				make_ok = 0
+			end            
+   
+
+end	
+end,
+})
+
+--Craft
+
+minetest.register_craft({
+		output = 'myappliances:machine',
+		recipe = {
+			{'mypress:sheet_tin', '', 'mypress:sheet_tin'},
+			{'mypress:sheet_tin', 'mypress:copper_wire', 'mypress:sheet_tin'},
+			{'mypress:sheet_tin', "mypress:sheet_tin", 'mypress:sheet_tin'},		
+		},
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
