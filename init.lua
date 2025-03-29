@@ -299,7 +299,7 @@ minetest.register_node("myappliances:washer", {
 minetest.register_node("myappliances:dryer", {
 	description = "Dryer",
 	tiles = {
-			"myappliances_dishwasher_sides.png",
+			"myappliances_dryer_top.png",
 			"myappliances_dishwasher_sides.png",
 			"myappliances_dishwasher_sides.png",
 			"myappliances_dishwasher_sides.png",
