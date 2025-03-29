@@ -136,6 +136,8 @@ on_construct = function(pos)
 		"image_button[1,2.5;1,1;myappliances_mach26.png;furn26; ]"..
 		"image_button[2,2.5;1,1;myappliances_mach27.png;furn27; ]"..
 		"image_button[3,2.5;1,1;myappliances_mach28.png;furn28; ]"..
+		"image_button[4,2.5;1,1;myappliances_mach29.png;furn29; ]"..
+		"image_button[5,2.5;1,1;myappliances_mach30.png;furn30; ]"..
 
 		"list[current_player;main;1,7;8,4;]")
 	meta:set_string("infotext", "Appliance Machine")
@@ -161,6 +163,8 @@ or fields["furn25"]
 or fields["furn26"]
 or fields["furn27"]
 or fields["furn28"]
+or fields["furn29"]
+or fields["furn30"]
 then
 
 	if fields["furn18"] then
@@ -266,6 +270,26 @@ then
 	if fields["furn28"] then
 		make_ok = "0"
 		shape = "myappliances:dryer"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn29"] then
+		make_ok = "0"
+		shape = "myappliances:microwave"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn30"] then
+		make_ok = "0"
+		shape = "myappliances:watercooler"
 		if inv:is_empty("plastic") or
 		   inv:is_empty("copper") or
 		   inv:is_empty("steel") then

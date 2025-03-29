@@ -43,10 +43,10 @@ minetest.register_node("myappliances:stove", {
 minetest.register_node("myappliances:fridge", {
 	description = "Fridge",
 	tiles = {
+			"myappliances_fridge_side.png^[transformR270",
 			"myappliances_dishwasher_sides.png",
-			"myappliances_dishwasher_sides.png",
-			"myappliances_dishwasher_sides.png",
-			"myappliances_dishwasher_sides.png",
+			"myappliances_fridge_side.png^[transformR180",
+			"myappliances_fridge_side.png",
 			"myappliances_dishwasher_sides.png",
 			"myappliances_fridge_front.png",
 			},
@@ -103,10 +103,10 @@ can_dig = function(pos,player)
 minetest.register_node("myappliances:fridge_top", {
 --	description = "Fridge",
 	tiles = {
+			"myappliances_fridge_side.png^[transformR270",
 			"myappliances_dishwasher_sides.png",
-			"myappliances_dishwasher_sides.png",
-			"myappliances_dishwasher_sides.png",
-			"myappliances_dishwasher_sides.png",
+			"myappliances_fridge_side.png^[transformR180",
+			"myappliances_fridge_side.png",
 			"myappliances_dishwasher_sides.png",
 			"myappliances_fridge_front.png^[transformFY",
 			},
@@ -318,4 +318,133 @@ minetest.register_node("myappliances:dryer", {
 			{-0.5, 0.3125, 0.3125, 0.5, 0.5, 0.5},
 		},
 	}
+})
+--Microwave
+minetest.register_node("myappliances:microwave", {
+	description = "Microwave",
+	tiles = {
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			"myappliances_microwave_front.png",
+			},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.125, 0.5, 0.125, 0.5},
+			{0.125, -0.375, -0.1875, 0.1875, 0, -0.125},
+		},
+	}
+})
+
+--Water Cooler
+minetest.register_node("myappliances:watercooler", {
+	description = "Water Cooler",
+	tiles = {
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			"myappliances_dishwasher_sides.png",
+			},
+	drawtype = "nodebox",
+	inventory_image = "myappliances_water_cooler_inv.png",
+	wield_image = "myappliances_water_cooler_wield.png",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.125, 0.375, 0.5, 0.375},
+			{-0.3125, -0.5, -0.1875, 0.3125, 0.5, 0.4375},
+			{-0.25, -0.5, -0.25, 0.25, 0.5, 0.5},
+			{-0.0625, 0.25, -0.4375, 0.0625, 0.375, -0.25},
+			{-0.125, -0.125, -0.5, 0.125, 0, -0.25},
+			}
+		},
+		selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.125, 0.375, 0.5, 0.375},
+			{-0.3125, -0.5, -0.1875, 0.3125, 0.5, 0.4375},
+			{-0.25, -0.5, -0.25, 0.25, 0.5, 0.5},
+			{-0.0625, 0.25, -0.4375, 0.0625, 0.375, -0.25},
+			{-0.125, -0.125, -0.5, 0.125, 0, -0.25},
+			{-0.3125, -0.5, -0.0625, 0.3125, 1.3125, 0.3125},
+			{-0.25, -0.5, -0.125, 0.25, 1.3125, 0.375},
+			{-0.1875, -0.5, -0.1875, 0.1875, 1.3125, 0.4375},
+			}
+		},
+	
+on_place = function(itemstack, placer, pointed_thing)
+        local pos = pointed_thing.above
+        if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air" then
+            minetest.chat_send_player( placer:get_player_name(), "Not enough space to place this!" )
+            return
+        end
+        return minetest.item_place(itemstack, placer, pointed_thing)
+    end,
+
+after_destruct = function(pos, oldnode)
+		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+	end,
+
+after_place_node = function(pos, placer)
+	minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = "myappliances:watercoolertop", 		param2=minetest.dir_to_facedir(placer:get_look_dir())});
+
+	end,
+
+can_dig = function(pos,player)
+
+	local meta = minetest.env:get_meta({x=pos.x,y=pos.y+1,z=pos.z});
+	local inv = meta:get_inventory()
+	if not inv:is_empty("ingot") then
+		return false
+	elseif not inv:is_empty("res") then
+		return false
+	end
+        local meta = minetest.get_meta(pos);
+        local inv = meta:get_inventory()
+        return inv:is_empty("main")
+    end,
+
+})
+--Water Cooler Top
+minetest.register_node("myappliances:watercoolertop", {
+--	description = "Water Cooler",
+	tiles = {
+			"myappliances_water_cooler_front.png",
+			"myappliances_water_cooler_front.png",
+			"myappliances_water_cooler_front.png",
+			"myappliances_water_cooler_front.png",
+			"myappliances_water_cooler_front.png",
+			"myappliances_water_cooler_front.png",
+			},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3125, -0.5, -0.0625, 0.3125, 0.3125, 0.3125},
+			{-0.25, -0.5, -0.125, 0.25, 0.3125, 0.375},
+			{-0.1875, -0.5, -0.1875, 0.1875, 0.3125, 0.4375},
+			}
+		},
+	selection_box = {
+		type = "fixed",
+		fixed = {0, 0, 0, 0, 0, 0},
+		},
 })
