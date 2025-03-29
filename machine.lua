@@ -128,9 +128,17 @@ on_construct = function(pos)
 		"image_button[1,1.5;1,1;myappliances_mach19.png;furn19; ]"..
 		"image_button[2,1.5;1,1;myappliances_mach20.png;furn20; ]"..
 		"image_button[3,1.5;1,1;myappliances_mach18.png;furn18; ]"..
+		"image_button[4,1.5;1,1;myappliances_mach21.png;furn21; ]"..
+		"image_button[5,1.5;1,1;myappliances_mach22.png;furn22; ]"..
+		"image_button[6,1.5;1,1;myappliances_mach23.png;furn23; ]"..
+		"image_button[7,1.5;1,1;myappliances_mach24.png;furn24; ]"..
+		"image_button[8,1.5;1,1;myappliances_mach25.png;furn25; ]"..
+		"image_button[1,2.5;1,1;myappliances_mach26.png;furn26; ]"..
+		"image_button[2,2.5;1,1;myappliances_mach27.png;furn27; ]"..
+		"image_button[3,2.5;1,1;myappliances_mach28.png;furn28; ]"..
 
 		"list[current_player;main;1,7;8,4;]")
-	meta:set_string("infotext", "Furniture Machine")
+	meta:set_string("infotext", "Appliance Machine")
 	local inv = meta:get_inventory()
 	inv:set_size("plastic", 1)
 	inv:set_size("copper", 1)
@@ -145,6 +153,14 @@ on_receive_fields = function(pos, formname, fields, sender)
 if fields["furn18"]
 or fields["furn19"]
 or fields["furn20"]
+or fields["furn21"]
+or fields["furn22"]
+or fields["furn23"]
+or fields["furn24"]
+or fields["furn25"]
+or fields["furn26"]
+or fields["furn27"]
+or fields["furn28"]
 then
 
 	if fields["furn18"] then
@@ -170,6 +186,86 @@ then
 	if fields["furn20"] then
 		make_ok = "0"
 		shape = "myappliances:dishwasher"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn21"] then
+		make_ok = "0"
+		shape = "myappliances:freezer"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn22"] then
+		make_ok = "0"
+		shape = "myappliances:tv"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn23"] then
+		make_ok = "0"
+		shape = "myappliances:tv_w_stand"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn24"] then
+		make_ok = "0"
+		shape = "myappliances:stereo"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn25"] then
+		make_ok = "0"
+		shape = "myappliances:speaker"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn26"] then
+		make_ok = "0"
+		shape = "myappliances:computer"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn27"] then
+		make_ok = "0"
+		shape = "myappliances:washer"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn28"] then
+		make_ok = "0"
+		shape = "myappliances:dryer"
 		if inv:is_empty("plastic") or
 		   inv:is_empty("copper") or
 		   inv:is_empty("steel") then
