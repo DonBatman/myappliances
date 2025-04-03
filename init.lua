@@ -14,7 +14,7 @@ minetest.register_node("myappliances:dishwasher", {
 	drawtype = "normal",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 })
 --Stove
 minetest.register_node("myappliances:stove", {
@@ -30,7 +30,7 @@ minetest.register_node("myappliances:stove", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -55,7 +55,7 @@ minetest.register_node("myappliances:fridge", {
 	wield_image = "myappliances_fridge_inv.png",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -113,7 +113,7 @@ minetest.register_node("myappliances:fridge_top", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -139,7 +139,7 @@ minetest.register_node("myappliances:freezer", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -160,7 +160,7 @@ minetest.register_node("myappliances:tv", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -184,7 +184,7 @@ minetest.register_node("myappliances:tv_w_stand", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -210,7 +210,7 @@ minetest.register_node("myappliances:stereo", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -233,7 +233,7 @@ minetest.register_node("myappliances:speaker", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -256,7 +256,7 @@ minetest.register_node("myappliances:computer", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -285,7 +285,7 @@ minetest.register_node("myappliances:washer", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -309,7 +309,7 @@ minetest.register_node("myappliances:dryer", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -333,7 +333,7 @@ minetest.register_node("myappliances:microwave", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -360,7 +360,7 @@ minetest.register_node("myappliances:watercooler", {
 	wield_image = "myappliances_water_cooler_wield.png",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -433,7 +433,7 @@ minetest.register_node("myappliances:watercoolertop", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	
 	node_box = {
 		type = "fixed",
@@ -447,4 +447,220 @@ minetest.register_node("myappliances:watercoolertop", {
 		type = "fixed",
 		fixed = {0, 0, 0, 0, 0, 0},
 		},
+})
+--Hotwater Heater
+minetest.register_node("myappliances:hotwater_heater", {
+	description = "Hotwater Heater",
+	tiles = {
+			"myappliances_hotwater_heater_sides.png",
+			"myappliances_hotwater_heater_sides.png",
+			"myappliances_hotwater_heater_sides.png",
+			"myappliances_hotwater_heater_sides.png",
+			"myappliances_hotwater_heater_sides.png",
+			"myappliances_hotwater_heater_bottom_front.png",
+			},
+	drawtype = "nodebox",
+	inventory_image = "myappliances_hotwater_heater_inv.png",
+	wield_image = "myappliances_hotwater_heater_inv.png",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 0},
+	
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.25, -0.5, -0.5, 0.25, 0.5, 0.5},
+			{-0.3125, -0.5, -0.4375, 0.3125, 0.5, 0.4375},
+			{-0.375, -0.5, -0.375, 0.375, 0.5, 0.375},
+			{-0.4375, -0.5, -0.3125, 0.4375, 0.5, 0.3125},
+			{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25},
+			}
+		},
+		selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 1.5, 0.5},
+			}
+		},
+	
+on_place = function(itemstack, placer, pointed_thing)
+        local pos = pointed_thing.above
+        if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air" then
+            minetest.chat_send_player( placer:get_player_name(), "Not enough space to place this!" )
+            return
+        end
+        return minetest.item_place(itemstack, placer, pointed_thing)
+    end,
+
+after_destruct = function(pos, oldnode)
+		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+	end,
+
+after_place_node = function(pos, placer)
+	minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = "myappliances:hotwater_heater_top", 		param2=minetest.dir_to_facedir(placer:get_look_dir())});
+
+	end,
+
+can_dig = function(pos,player)
+
+	local meta = minetest.env:get_meta({x=pos.x,y=pos.y+1,z=pos.z});
+	local inv = meta:get_inventory()
+	if not inv:is_empty("ingot") then
+		return false
+	elseif not inv:is_empty("res") then
+		return false
+	end
+        local meta = minetest.get_meta(pos);
+        local inv = meta:get_inventory()
+        return inv:is_empty("main")
+    end,
+
+})
+--Hotwater Heater  Top
+minetest.register_node("myappliances:hotwater_heater_top", {
+--	description = "Hotwater Heater",
+	tiles = {
+			"myappliances_hotwater_heater_top.png",
+			"myappliances_hotwater_heater_sides.png",
+			"myappliances_hotwater_heater_top_sides.png",
+			"myappliances_hotwater_heater_top_sides.png",
+			"myappliances_hotwater_heater_top_sides.png",
+			"myappliances_hotwater_heater_top_front.png",
+			},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
+	
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.25, -0.5, -0.5, 0.25, 0.5, 0.5},
+			{-0.3125, -0.5, -0.4375, 0.3125, 0.5, 0.4375},
+			{-0.375, -0.5, -0.375, 0.375, 0.5, 0.375},
+			{-0.4375, -0.5, -0.3125, 0.4375, 0.5, 0.3125},
+			{-0.5, -0.5, -0.25, 0.5, 0.5, 0.25},
+			}
+		},
+	selection_box = {
+		type = "fixed",
+		fixed = {0, 0, 0, 0, 0, 0},
+		},
+})
+--Furnace
+minetest.register_node("myappliances:furnace", {
+	description = "Furnace",
+	tiles = {
+			"myappliances_furnace_sides.png",
+			"myappliances_furnace_sides.png",
+			"myappliances_furnace_side.png^[transformR180",
+			"myappliances_furnace_side.png",
+			"myappliances_furnace_sides.png",
+			"myappliances_furnace_front.png",
+			},
+	drawtype = "normal",
+	inventory_image = "myappliances_furnace_inv.png",
+	wield_image = "myappliances_furnace_inv.png",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 0},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 1.5, 0.5},
+			}
+		},
+on_place = function(itemstack, placer, pointed_thing)
+        local pos = pointed_thing.above
+        if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air" then
+            minetest.chat_send_player( placer:get_player_name(), "Not enough space to place this!" )
+            return
+        end
+        return minetest.item_place(itemstack, placer, pointed_thing)
+    end,
+
+after_destruct = function(pos, oldnode)
+		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+	end,
+
+after_place_node = function(pos, placer)
+	minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = "myappliances:furnace_top", 		param2=minetest.dir_to_facedir(placer:get_look_dir())});
+
+	end,
+
+can_dig = function(pos,player)
+
+	local meta = minetest.env:get_meta({x=pos.x,y=pos.y+1,z=pos.z});
+	local inv = meta:get_inventory()
+	if not inv:is_empty("ingot") then
+		return false
+	elseif not inv:is_empty("res") then
+		return false
+	end
+        local meta = minetest.get_meta(pos);
+        local inv = meta:get_inventory()
+        return inv:is_empty("main")
+    end,
+
+})
+--Furnace Top
+minetest.register_node("myappliances:furnace_top", {
+--	description = "Furnace",
+	tiles = {
+			"myappliances_furnace_side.png^[transformR270",
+			"myappliances_furnace_sides.png",
+			"myappliances_furnace_side.png^[transformR180",
+			"myappliances_furnace_side.png",
+			"myappliances_furnace_sides.png",
+			"myappliances_furnace_front.png^[transformR180",
+			},
+	drawtype = "normal",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 0},
+	selection_box = {
+		type = "fixed",
+		fixed = {0, 0, 0, 0, 0, 0},
+		},
+})
+
+--Stove_pipe
+minetest.register_node("myappliances:stove_pipe", {
+	description = "Stove Pipe",
+	tiles = {"myappliances_hotwater_heater_sides.png"},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.25, -0.125, -0.5, 0.25, 0.125, 0.5},
+			{-0.1875, -0.1875, -0.5, 0.1875, 0.1875, 0.5},
+			{-0.125, -0.25, -0.5, 0.125, 0.25, 0.5},
+				},
+			},
+	on_place = minetest.rotate_node
+})
+
+--Stove Pipe Elbow
+minetest.register_node("myappliances:stove_pipe_elbow", {
+	description = "Stove Pipe Elbow",
+	tiles = {"myappliances_hotwater_heater_sides.png"},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.25, -0.125, -0.5, 0.25, 0.125, 0.125},
+			{-0.1875, -0.1875, -0.5, 0.1875, 0.1875, 0.125},
+			{-0.125, -0.25, -0.5, 0.125, 0.25, 0.0625},
+			{-0.125, -0.5, -0.25, 0.125, 0.0625, 0.25},
+			{-0.1875, -0.5, -0.1875, 0.1875, 0.125, 0.1875},
+			{-0.25, -0.5, -0.125, 0.25, -0.0625, 0.125},
+				},
+			},
+	on_place = minetest.rotate_node
 })

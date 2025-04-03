@@ -36,6 +36,8 @@ minetest.register_node("myappliances:machine", {
 	tiles = {
 		"myappliances_dishwasher_sides.png",
 		},
+	inventory_image = "myappliances_machine_inv.png",
+	wield_image = "myappliances_machine_inv.png",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -138,6 +140,8 @@ on_construct = function(pos)
 		"image_button[3,2.5;1,1;myappliances_mach28.png;furn28; ]"..
 		"image_button[4,2.5;1,1;myappliances_mach29.png;furn29; ]"..
 		"image_button[5,2.5;1,1;myappliances_mach30.png;furn30; ]"..
+		"image_button[6,2.5;1,1;myappliances_mach31.png;furn31; ]"..
+		"image_button[7,2.5;1,1;myappliances_mach32.png;furn32; ]"..
 
 		"list[current_player;main;1,7;8,4;]")
 	meta:set_string("infotext", "Appliance Machine")
@@ -165,6 +169,8 @@ or fields["furn27"]
 or fields["furn28"]
 or fields["furn29"]
 or fields["furn30"]
+or fields["furn31"]
+or fields["furn32"]
 then
 
 	if fields["furn18"] then
@@ -290,6 +296,26 @@ then
 	if fields["furn30"] then
 		make_ok = "0"
 		shape = "myappliances:watercooler"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn31"] then
+		make_ok = "0"
+		shape = "myappliances:furnace"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn32"] then
+		make_ok = "0"
+		shape = "myappliances:hotwater_heater"
 		if inv:is_empty("plastic") or
 		   inv:is_empty("copper") or
 		   inv:is_empty("steel") then
