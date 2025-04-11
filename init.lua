@@ -664,3 +664,53 @@ minetest.register_node("myappliances:stove_pipe_elbow", {
 			},
 	on_place = minetest.rotate_node
 })
+
+--Toaster
+minetest.register_node("myappliances:toaster", {
+	description = "Toaster",
+	tiles = {"myappliances_toaster_top.png",
+			"myappliances_toaster_side.png",
+			"myappliances_toaster_right.png",
+			"myappliances_toaster_side.png",
+			"myappliances_toaster_front.png^[transformR180",
+			"myappliances_toaster_front.png"},
+	
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.0625, 0.3125, -0.0625, 0.375},
+			{-0.3125, -0.5, 0, 0.25, 0, 0.3125},
+			{0.3125, -0.25, 0.0625, 0.375, -0.1875, 0.25},
+				},
+			},
+})
+
+--Lamp
+minetest.register_node("myappliances:lamp", {
+	description = "Lamp",
+	tiles = {"myappliances_lamp_top.png",
+			"myappliances_lamp_bottom.png",
+			"myappliances_lamp_side.png",
+			"myappliances_lamp_side.png",
+			"myappliances_lamp_side.png",
+			"myappliances_lamp_side.png"},
+	
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.125, -0.5, -0.1875, 0.125, 0, 0.1875},
+			{-0.1875, 0, -0.3125, 0.1875, 0.5, 0.3125},
+			{-0.3125, 0, -0.1875, 0.3125, 0.5, 0.1875},
+			{-0.25, 0, -0.25, 0.25, 0.5, 0.25},
+			{-0.1875, -0.5, -0.125, 0.1875, 0, 0.125},
+				},
+			},
+})

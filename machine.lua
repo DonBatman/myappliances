@@ -111,37 +111,41 @@ on_construct = function(pos)
 	meta:set_string("formspec", "invsize[10,11;]"..
 		"background[-0.15,-0.25;10.40,11.75;myappliances_background.png]"..
 		
-		"label[1,4;Plastic]"..
+		"label[1,4.5;Plastic]"..
 		"list[current_name;plastic;1,5;1,1;]"..
 		
-		"label[2.25,4;Copper Wire]"..
+		"label[2.25,4.5;Copper Wire]"..
 		"list[current_name;copper;2.5,5;1,1;]"..
 		
-		"label[4,4;Steel Sheet]"..
+		"label[4,4.5;Steel Sheet]"..
 		"list[current_name;steel;4,5;1,1;]"..
 		
-		"label[6,4;Output]"..
+		"label[6,4.5;Output]"..
 		"list[current_name;res;6,5;1,1;]"..
 		
 		
-		"label[1,1;Pick Your Appliance]"..
+		"label[1,0.5;Pick Your Appliance]"..
 		--row 1
 		--row 4
-		"image_button[1,1.5;1,1;myappliances_mach19.png;furn19; ]"..
-		"image_button[2,1.5;1,1;myappliances_mach20.png;furn20; ]"..
-		"image_button[3,1.5;1,1;myappliances_mach18.png;furn18; ]"..
-		"image_button[4,1.5;1,1;myappliances_mach21.png;furn21; ]"..
-		"image_button[5,1.5;1,1;myappliances_mach22.png;furn22; ]"..
-		"image_button[6,1.5;1,1;myappliances_mach23.png;furn23; ]"..
-		"image_button[7,1.5;1,1;myappliances_mach24.png;furn24; ]"..
-		"image_button[8,1.5;1,1;myappliances_mach25.png;furn25; ]"..
-		"image_button[1,2.5;1,1;myappliances_mach26.png;furn26; ]"..
-		"image_button[2,2.5;1,1;myappliances_mach27.png;furn27; ]"..
-		"image_button[3,2.5;1,1;myappliances_mach28.png;furn28; ]"..
-		"image_button[4,2.5;1,1;myappliances_mach29.png;furn29; ]"..
-		"image_button[5,2.5;1,1;myappliances_mach30.png;furn30; ]"..
-		"image_button[6,2.5;1,1;myappliances_mach31.png;furn31; ]"..
-		"image_button[7,2.5;1,1;myappliances_mach32.png;furn32; ]"..
+		"image_button[1,1;1,1;myappliances_mach19.png;furn19; ]"..
+		"image_button[2,1;1,1;myappliances_mach20.png;furn20; ]"..
+		"image_button[3,1;1,1;myappliances_mach18.png;furn18; ]"..
+		"image_button[4,1;1,1;myappliances_mach21.png;furn21; ]"..
+		"image_button[5,1;1,1;myappliances_mach22.png;furn22; ]"..
+		"image_button[6,1;1,1;myappliances_mach23.png;furn23; ]"..
+		"image_button[7,1;1,1;myappliances_mach24.png;furn24; ]"..
+		"image_button[8,1;1,1;myappliances_mach25.png;furn25; ]"..
+		
+		"image_button[1,2;1,1;myappliances_mach26.png;furn26; ]"..
+		"image_button[2,2;1,1;myappliances_mach27.png;furn27; ]"..
+		"image_button[3,2;1,1;myappliances_mach28.png;furn28; ]"..
+		"image_button[4,2;1,1;myappliances_mach29.png;furn29; ]"..
+		"image_button[5,2;1,1;myappliances_mach30.png;furn30; ]"..
+		"image_button[6,2;1,1;myappliances_mach31.png;furn31; ]"..
+		"image_button[7,2;1,1;myappliances_mach32.png;furn32; ]"..
+		"image_button[8,2;1,1;myappliances_mach33.png;furn33; ]"..
+		
+		"image_button[1,3;1,1;myappliances_mach34.png;furn34; ]"..
 
 		"list[current_player;main;1,7;8,4;]")
 	meta:set_string("infotext", "Appliance Machine")
@@ -171,6 +175,8 @@ or fields["furn29"]
 or fields["furn30"]
 or fields["furn31"]
 or fields["furn32"]
+or fields["furn33"]
+or fields["furn34"]
 then
 
 	if fields["furn18"] then
@@ -323,6 +329,26 @@ then
 		end
 	end
 
+	if fields["furn33"] then
+		make_ok = "0"
+		shape = "myappliances:toaster"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn34"] then
+		make_ok = "0"
+		shape = "myappliances:lamp"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
 		local stack1 = inv:get_stack("plastic", 1)
 		local stack2 = inv:get_stack("copper", 1)
 		local stack3 = inv:get_stack("steel", 1)
@@ -365,8 +391,22 @@ minetest.register_craft({
 			{'mypress:sheet_tin', "mypress:sheet_tin", 'mypress:sheet_tin'},		
 		},
 })
-
-
+minetest.register_craft({
+		output = 'myappliances:stove_pipe',
+		recipe = {
+			{'', 'mypress:sheet_tin', ''},
+			{'', 'mypress:sheet_tin', ''},
+			{'', "mypress:sheet_tin", ''},		
+		},
+})
+minetest.register_craft({
+		output = 'myappliances:stove_pipe_elbow',
+		recipe = {
+			{'', '', ''},
+			{'mypress:sheet_tin', 'mypress:sheet_tin', ''},
+			{'', "mypress:sheet_tin", ''},		
+		},
+})
 
 
 
