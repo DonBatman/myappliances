@@ -1,7 +1,7 @@
 local shape = {}
 local make_ok = {}
 
-minetest.register_node("myappliances:machine_top", {
+core.register_node("myappliances:machine_top", {
 --	description = "Appliance Machine Top",
 	tiles = {
 		"myappliances_dishwasher_sides.png",
@@ -31,13 +31,11 @@ minetest.register_node("myappliances:machine_top", {
 	},
 })
 
-minetest.register_node("myappliances:machine", {
+core.register_node("myappliances:machine", {
 	description = "Appliance Machine",
 	tiles = {
 		"myappliances_dishwasher_sides.png",
 		},
-	inventory_image = "myappliances_machine_inv.png",
-	wield_image = "myappliances_machine_inv.png",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -63,22 +61,22 @@ minetest.register_node("myappliances:machine", {
 	},
 on_place = function(itemstack, placer, pointed_thing)
         local pos = pointed_thing.above
-        if minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air" then
-            minetest.chat_send_player( placer:get_player_name(), "Not enough space to place this!" )
+        if core.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air" then
+            core.chat_send_player( placer:get_player_name(), "Not enough space to place this!" )
             return
         end
-        return minetest.item_place(itemstack, placer, pointed_thing)
+        return core.item_place(itemstack, placer, pointed_thing)
     end,
     
 after_destruct = function(pos, oldnode)
-		minetest.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
+		core.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
 	end,
 
 after_place_node = function(pos, placer)
 
-	minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = "myappliances:machine_top", 		param2=minetest.dir_to_facedir(placer:get_look_dir())});
+	core.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = "myappliances:machine_top", 		param2=core.dir_to_facedir(placer:get_look_dir())});
 
-	local meta = minetest.get_meta(pos);
+	local meta = core.get_meta(pos);
 	meta:set_string("owner",  (placer:get_player_name() or ""));
 	meta:set_string("infotext",  "Appliance Machine (owned by " .. (placer:get_player_name() or "") .. ")");
 	
@@ -92,7 +90,7 @@ after_place_node = function(pos, placer)
 end,
 
 can_dig = function(pos,player)
-	local meta = minetest.get_meta(pos);
+	local meta = core.get_meta(pos);
 	local inv = meta:get_inventory()
 	if player:get_player_name() == meta:get_string("owner") and
 	inv:is_empty("plastic") and
@@ -107,45 +105,42 @@ end,
 
 on_construct = function(pos)
 		
-	local meta = minetest.get_meta(pos)
-	meta:set_string("formspec", "invsize[10,11;]"..
+	local meta = core.get_meta(pos)
+	meta:set_string("formspec", "size[10,11;]"..
 		"background[-0.15,-0.25;10.40,11.75;myappliances_background.png]"..
 		
-		"label[1,4.5;Plastic]"..
+		"label[1,4;Plastic]"..
 		"list[current_name;plastic;1,5;1,1;]"..
 		
-		"label[2.25,4.5;Copper Wire]"..
+		"label[2.25,4;Copper Wire]"..
 		"list[current_name;copper;2.5,5;1,1;]"..
 		
-		"label[4,4.5;Steel Sheet]"..
+		"label[4,4;Steel Sheet]"..
 		"list[current_name;steel;4,5;1,1;]"..
 		
-		"label[6,4.5;Output]"..
+		"label[6,4;Output]"..
 		"list[current_name;res;6,5;1,1;]"..
 		
 		
-		"label[1,0.5;Pick Your Appliance]"..
+		"label[1,1;Pick Your Appliance]"..
 		--row 1
 		--row 4
-		"image_button[1,1;1,1;myappliances_mach19.png;furn19; ]"..
-		"image_button[2,1;1,1;myappliances_mach20.png;furn20; ]"..
-		"image_button[3,1;1,1;myappliances_mach18.png;furn18; ]"..
-		"image_button[4,1;1,1;myappliances_mach21.png;furn21; ]"..
-		"image_button[5,1;1,1;myappliances_mach22.png;furn22; ]"..
-		"image_button[6,1;1,1;myappliances_mach23.png;furn23; ]"..
-		"image_button[7,1;1,1;myappliances_mach24.png;furn24; ]"..
-		"image_button[8,1;1,1;myappliances_mach25.png;furn25; ]"..
-		
-		"image_button[1,2;1,1;myappliances_mach26.png;furn26; ]"..
-		"image_button[2,2;1,1;myappliances_mach27.png;furn27; ]"..
-		"image_button[3,2;1,1;myappliances_mach28.png;furn28; ]"..
-		"image_button[4,2;1,1;myappliances_mach29.png;furn29; ]"..
-		"image_button[5,2;1,1;myappliances_mach30.png;furn30; ]"..
-		"image_button[6,2;1,1;myappliances_mach31.png;furn31; ]"..
-		"image_button[7,2;1,1;myappliances_mach32.png;furn32; ]"..
-		"image_button[8,2;1,1;myappliances_mach33.png;furn33; ]"..
-		
-		"image_button[1,3;1,1;myappliances_mach34.png;furn34; ]"..
+		"image_button[1,1.5;1,1;myappliances_mach19.png;furn19; ]"..
+		"image_button[2,1.5;1,1;myappliances_mach20.png;furn20; ]"..
+		"image_button[3,1.5;1,1;myappliances_mach18.png;furn18; ]"..
+		"image_button[4,1.5;1,1;myappliances_mach21.png;furn21; ]"..
+		"image_button[5,1.5;1,1;myappliances_mach22.png;furn22; ]"..
+		"image_button[6,1.5;1,1;myappliances_mach23.png;furn23; ]"..
+		"image_button[7,1.5;1,1;myappliances_mach24.png;furn24; ]"..
+		"image_button[8,1.5;1,1;myappliances_mach25.png;furn25; ]"..
+		"image_button[1,2.5;1,1;myappliances_mach26.png;furn26; ]"..
+		"image_button[2,2.5;1,1;myappliances_mach27.png;furn27; ]"..
+		"image_button[3,2.5;1,1;myappliances_mach28.png;furn28; ]"..
+		"image_button[4,2.5;1,1;myappliances_mach29.png;furn29; ]"..
+		"image_button[5,2.5;1,1;myappliances_mach30.png;furn30; ]"..
+		"image_button[6,2.5;1,1;myappliances_mach31.png;furn31; ]"..
+		"image_button[7,2.5;1,1;myappliances_mach32.png;furn32; ]"..
+		"image_button[8,2.5;1,1;myappliances_mach33.png;furn33; ]"..
 
 		"list[current_player;main;1,7;8,4;]")
 	meta:set_string("infotext", "Appliance Machine")
@@ -157,7 +152,7 @@ on_construct = function(pos)
 end,
 
 on_receive_fields = function(pos, formname, fields, sender)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	local inv = meta:get_inventory()
 
 if fields["furn18"]
@@ -176,7 +171,6 @@ or fields["furn30"]
 or fields["furn31"]
 or fields["furn32"]
 or fields["furn33"]
-or fields["furn34"]
 then
 
 	if fields["furn18"] then
@@ -311,7 +305,7 @@ then
 
 	if fields["furn31"] then
 		make_ok = "0"
-		shape = "myappliances:furnace"
+		shape = "myappliances:coffeemaker"
 		if inv:is_empty("plastic") or
 		   inv:is_empty("copper") or
 		   inv:is_empty("steel") then
@@ -321,7 +315,7 @@ then
 
 	if fields["furn32"] then
 		make_ok = "0"
-		shape = "myappliances:hotwater_heater"
+		shape = "myappliances:airfryer"
 		if inv:is_empty("plastic") or
 		   inv:is_empty("copper") or
 		   inv:is_empty("steel") then
@@ -332,16 +326,6 @@ then
 	if fields["furn33"] then
 		make_ok = "0"
 		shape = "myappliances:toaster"
-		if inv:is_empty("plastic") or
-		   inv:is_empty("copper") or
-		   inv:is_empty("steel") then
-			return
-		end
-	end
-
-	if fields["furn34"] then
-		make_ok = "0"
-		shape = "myappliances:lamp"
 		if inv:is_empty("plastic") or
 		   inv:is_empty("copper") or
 		   inv:is_empty("steel") then
@@ -383,7 +367,7 @@ end,
 
 --Craft
 
-minetest.register_craft({
+core.register_craft({
 		output = 'myappliances:machine',
 		recipe = {
 			{'mypress:sheet_tin', '', 'mypress:sheet_tin'},
@@ -391,22 +375,8 @@ minetest.register_craft({
 			{'mypress:sheet_tin', "mypress:sheet_tin", 'mypress:sheet_tin'},		
 		},
 })
-minetest.register_craft({
-		output = 'myappliances:stove_pipe',
-		recipe = {
-			{'', 'mypress:sheet_tin', ''},
-			{'', 'mypress:sheet_tin', ''},
-			{'', "mypress:sheet_tin", ''},		
-		},
-})
-minetest.register_craft({
-		output = 'myappliances:stove_pipe_elbow',
-		recipe = {
-			{'', '', ''},
-			{'mypress:sheet_tin', 'mypress:sheet_tin', ''},
-			{'', "mypress:sheet_tin", ''},		
-		},
-})
+
+
 
 
 
