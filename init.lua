@@ -135,32 +135,9 @@ core.register_node("myappliances:stereo", {
 		},
 	},
 })
---Speakers
-core.register_node("myappliances:speaker", {
-	description = "Speaker",
-	tiles = {
-			"myappliances_tv_side.png",
-			"myappliances_tv_side.png",
-			"myappliances_tv_side.png",
-			"myappliances_tv_side.png",
-			"myappliances_tv_side.png",
-			"myappliances_speaker_front.png",
-			},
-	drawtype = "nodebox",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2},
-	
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.3125, -0.5, 0.0625, 0.3125, 0.3125, 0.5},
-		},
-	}
-})
 
 --Floor Speakers
-core.register_node("myappliances:floorspeakers", {
+core.register_node("myappliances:speaker", {
 	description = "Computer",
 	tiles = {
 			"myappliances_floorspeaker.png",
