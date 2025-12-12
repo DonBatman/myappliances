@@ -8,7 +8,7 @@ core.register_node("myappliances:toaster", {
 	mesh = "myappliances_toaster.obj",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 0},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	selection_box = {
 		type = "fixed",
 		fixed = {
@@ -26,7 +26,7 @@ core.register_node("myappliances:airfryer", {
 	mesh = "myappliances_airfryer.obj",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 0},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	selection_box = {
 		type = "fixed",
 		fixed = {
@@ -44,7 +44,7 @@ core.register_node("myappliances:coffeemaker", {
 	mesh = "myappliances_coffeemaker.obj",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 0},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	selection_box = {
 		type = "fixed",
 		fixed = {
@@ -62,7 +62,7 @@ core.register_node("myappliances:microwave", {
 	mesh = "myappliances_microwave.obj",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 0},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	selection_box = {
 		type = "fixed",
 		fixed = {

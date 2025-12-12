@@ -1,80 +1,24 @@
 local shape = {}
 local make_ok = {}
 
-core.register_node("myappliances:machine_top", {
---	description = "Appliance Machine Top",
-	tiles = {
-		"myappliances_dishwasher_sides.png",
-		},
-	drawtype = "nodebox",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	groups = {cracky=2},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, -0.375, 0.5, 0.5},
-			{0.375, -0.5, -0.5, 0.5, 0.5, 0.5},
-			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5},
-			{-0.5, -0.5, 0.375, 0.5, 0.5, 0.5},
-			{-0.25, -0.5, -0.375, -0.1875, 0.5, -0.3125},
-			{0.1875, -0.5, -0.375, 0.25, 0.5, -0.3125},
-			{0.1875, -0.5, 0.0625, 0.25, 0.5, 0.125},
-			{-0.25, -0.5, 0.0625, -0.1875, 0.5, 0.125},
-		}
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-			{0, 0, 0, 0, 0, 0},
-		}
-	},
-})
-
 core.register_node("myappliances:machine", {
 	description = "Appliance Machine",
 	tiles = {
-		"myappliances_dishwasher_sides.png",
+		"myappliances_machine.png",
 		},
-	drawtype = "nodebox",
+	drawtype = "mesh",
+	mesh = "myappliances_machine.obj",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2},
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, -0.375, 0.5, 0.5},
-			{0.375, -0.5, -0.5, 0.5, 0.5, 0.5},
-			{-0.5, -0.5, -0.5, 0.5, -0.375, 0.5},
-			{-0.5, -0.5, 0.375, 0.5, 0.5, 0.5},
-			{-0.25, -0.5, -0.375, -0.1875, 0.5, -0.3125},
-			{0.1875, -0.5, -0.375, 0.25, 0.5, -0.3125},
-			{0.1875, -0.5, 0.0625, 0.25, 0.5, 0.125},
-			{-0.25, -0.5, 0.0625, -0.1875, 0.5, 0.125},
-		}
-	},
 	selection_box = {
 		type = "fixed",
 		fixed = {
 			{-0.5, -0.5, -0.5, 0.5, 1.5, 0.5},
 		}
 	},
-on_place = function(itemstack, placer, pointed_thing)
-        local pos = pointed_thing.above
-        if core.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air" then
-            core.chat_send_player( placer:get_player_name(), "Not enough space to place this!" )
-            return
-        end
-        return core.item_place(itemstack, placer, pointed_thing)
-    end,
-    
-after_destruct = function(pos, oldnode)
-		core.remove_node({x = pos.x, y = pos.y + 1, z = pos.z})
-	end,
 
 after_place_node = function(pos, placer)
-
-	core.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = "myappliances:machine_top", 		param2=core.dir_to_facedir(placer:get_look_dir())});
 
 	local meta = core.get_meta(pos);
 	meta:set_string("owner",  (placer:get_player_name() or ""));
@@ -108,23 +52,23 @@ on_construct = function(pos)
 	local meta = core.get_meta(pos)
 	meta:set_string("formspec", "size[10,11;]"..
 		"background[-0.15,-0.25;10.40,11.75;myappliances_background.png]"..
-		
-		"label[1,4;Plastic]"..
-		"list[current_name;plastic;1,5;1,1;]"..
-		
-		"label[2.25,4;Copper Wire]"..
-		"list[current_name;copper;2.5,5;1,1;]"..
-		
-		"label[4,4;Steel Sheet]"..
-		"list[current_name;steel;4,5;1,1;]"..
-		
-		"label[6,4;Output]"..
-		"list[current_name;res;6,5;1,1;]"..
-		
-		
 		"label[1,1;Pick Your Appliance]"..
+		
+		--Inputs
+		"label[1,5;Plastic]"..
+		"list[current_name;plastic;1,5.5;1,1;]"..
+		
+		"label[2.25,5;Copper Wire]"..
+		"list[current_name;copper;2.5,5.5;1,1;]"..
+		
+		"label[4,5;Steel Sheet]"..
+		"list[current_name;steel;4,5.5;1,1;]"..
+		
+		--Output
+		"label[6,5;Output]"..
+		"list[current_name;res;6,5.5;1,1;]"..
+
 		--row 1
-		--row 4
 		"image_button[1,1.5;1,1;myappliances_mach19.png;furn19; ]"..
 		"image_button[2,1.5;1,1;myappliances_mach20.png;furn20; ]"..
 		"image_button[3,1.5;1,1;myappliances_mach18.png;furn18; ]"..
@@ -133,6 +77,7 @@ on_construct = function(pos)
 		"image_button[6,1.5;1,1;myappliances_mach23.png;furn23; ]"..
 		"image_button[7,1.5;1,1;myappliances_mach24.png;furn24; ]"..
 		"image_button[8,1.5;1,1;myappliances_mach25.png;furn25; ]"..
+		--row 2
 		"image_button[1,2.5;1,1;myappliances_mach26.png;furn26; ]"..
 		"image_button[2,2.5;1,1;myappliances_mach27.png;furn27; ]"..
 		"image_button[3,2.5;1,1;myappliances_mach28.png;furn28; ]"..
@@ -141,6 +86,9 @@ on_construct = function(pos)
 		"image_button[6,2.5;1,1;myappliances_mach31.png;furn31; ]"..
 		"image_button[7,2.5;1,1;myappliances_mach32.png;furn32; ]"..
 		"image_button[8,2.5;1,1;myappliances_mach33.png;furn33; ]"..
+		--row 3
+		"image_button[1,3.5;1,1;myappliances_mach34.png;furn34; ]"..
+		"image_button[2,3.5;1,1;myappliances_mach35.png;furn35; ]"..
 
 		"list[current_player;main;1,7;8,4;]")
 	meta:set_string("infotext", "Appliance Machine")
@@ -171,6 +119,8 @@ or fields["furn30"]
 or fields["furn31"]
 or fields["furn32"]
 or fields["furn33"]
+or fields["furn34"]
+or fields["furn35"]
 then
 
 	if fields["furn18"] then
@@ -326,6 +276,26 @@ then
 	if fields["furn33"] then
 		make_ok = "0"
 		shape = "myappliances:toaster"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn34"] then
+		make_ok = "0"
+		shape = "myappliances:furnace"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn35"] then
+		make_ok = "0"
+		shape = "myappliances:hotwater_heater"
 		if inv:is_empty("plastic") or
 		   inv:is_empty("copper") or
 		   inv:is_empty("steel") then
