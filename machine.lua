@@ -308,7 +308,6 @@ then
 		local stack3 = inv:get_stack("steel", 1)
 		local resstack = inv:get_stack("res", 1)
 
-
 ------------------------------------------------------------------------------------------
 --register nodes here
 ------------------------------------------------------------------------------------------
@@ -317,21 +316,18 @@ then
 		stack3:get_name()=="mypress:sheet_steel" then
 				make_ok = "1"
 		end
-
 ----------------------------------------------------------------------------
-    		if make_ok == "1" then
-				inv:add_item("res",shape)
-				stack1:take_item()
-				stack2:take_item()
-				stack3:take_item()
-				inv:set_stack("plastic",1,stack1)
-				inv:set_stack("copper",1,stack2)
-				inv:set_stack("steel",1,stack3)
-				make_ok = 0
-			end            
-   
-
-end	
+    	if make_ok == "1" then
+			inv:add_item("res",shape)
+			stack1:take_item()
+			stack2:take_item()
+			stack3:take_item()
+			inv:set_stack("plastic",1,stack1)
+			inv:set_stack("copper",1,stack2)
+			inv:set_stack("steel",1,stack3)
+			make_ok = 0
+		end
+	end	
 end,
 })
 
@@ -340,9 +336,9 @@ end,
 core.register_craft({
 		output = 'myappliances:machine',
 		recipe = {
-			{'mypress:sheet_tin', '', 'mypress:sheet_tin'},
-			{'mypress:sheet_tin', 'mypress:copper_wire', 'mypress:sheet_tin'},
-			{'mypress:sheet_tin', "mypress:sheet_tin", 'mypress:sheet_tin'},		
+			{"mypress:sheet_tin", "", "mypress:sheet_tin"},
+			{"mypress:sheet_tin", "mypress:copper_wire", "mypress:sheet_tin"},
+			{"mypress:sheet_tin", "mypress:sheet_tin", "mypress:sheet_tin"},		
 		},
 })
 
