@@ -69,26 +69,27 @@ on_construct = function(pos)
 		"list[current_name;res;6,5.5;1,1;]"..
 
 		--row 1
-		"image_button[1,1.5;1,1;myappliances_mach19.png;furn19; ]"..
-		"image_button[2,1.5;1,1;myappliances_mach20.png;furn20; ]"..
-		"image_button[3,1.5;1,1;myappliances_mach18.png;furn18; ]"..
-		"image_button[4,1.5;1,1;myappliances_mach21.png;furn21; ]"..
-		"image_button[5,1.5;1,1;myappliances_mach22.png;furn22; ]"..
-		"image_button[6,1.5;1,1;myappliances_mach23.png;furn23; ]"..
-		"image_button[7,1.5;1,1;myappliances_mach24.png;furn24; ]"..
-		"image_button[8,1.5;1,1;myappliances_mach25.png;furn25; ]"..
+		"item_image_button[1,1.5;1,1;myappliances:stove;furn19; ]"..
+		"item_image_button[2,1.5;1,1;myappliances:dishwasher;furn20; ]"..
+		"item_image_button[3,1.5;1,1;myappliances:fridge;furn18; ]"..
+		"item_image_button[4,1.5;1,1;myappliances:freezer;furn21; ]"..
+		"item_image_button[5,1.5;1,1;myappliances:tv;furn22; ]"..
+		"item_image_button[6,1.5;1,1;myappliances:tv_w_stand;furn23; ]"..
+		"item_image_button[7,1.5;1,1;myappliances:stereo;furn24; ]"..
+		"item_image_button[8,1.5;1,1;myappliances:speaker;furn25; ]"..
 		--row 2
-		"image_button[1,2.5;1,1;myappliances_mach26.png;furn26; ]"..
-		"image_button[2,2.5;1,1;myappliances_mach27.png;furn27; ]"..
-		"image_button[3,2.5;1,1;myappliances_mach28.png;furn28; ]"..
-		"image_button[4,2.5;1,1;myappliances_mach29.png;furn29; ]"..
-		"image_button[5,2.5;1,1;myappliances_mach30.png;furn30; ]"..
-		"image_button[6,2.5;1,1;myappliances_mach31.png;furn31; ]"..
-		"image_button[7,2.5;1,1;myappliances_mach32.png;furn32; ]"..
-		"image_button[8,2.5;1,1;myappliances_mach33.png;furn33; ]"..
+		"item_image_button[1,2.5;1,1;myappliances:computer;furn26; ]"..
+		"item_image_button[2,2.5;1,1;myappliances:washer;furn27; ]"..
+		"item_image_button[3,2.5;1,1;myappliances:dryer;furn28; ]"..
+		"item_image_button[4,2.5;1,1;myappliances:microwave;furn29; ]"..
+		"item_image_button[5,2.5;1,1;myappliances:watercooler;furn30; ]"..
+		"item_image_button[6,2.5;1,1;myappliances:coffeemaker;furn31; ]"..
+		"item_image_button[7,2.5;1,1;myappliances:airfryer;furn32; ]"..
+		"item_image_button[8,2.5;1,1;myappliances:toaster;furn33; ]"..
 		--row 3
-		"image_button[1,3.5;1,1;myappliances_mach34.png;furn34; ]"..
-		"image_button[2,3.5;1,1;myappliances_mach35.png;furn35; ]"..
+		"item_image_button[1,3.5;1,1;myappliances:furnace;furn34; ]"..
+		"item_image_button[2,3.5;1,1;myappliances:hotwater_heater;furn35; ]"..
+		"item_image_button[3,3.5;1,1;myappliances:bathroom_light;furn36; ]"..
 
 		"list[current_player;main;1,7;8,4;]")
 	meta:set_string("infotext", "Appliance Machine")
@@ -121,6 +122,7 @@ or fields["furn32"]
 or fields["furn33"]
 or fields["furn34"]
 or fields["furn35"]
+or fields["furn36"]
 then
 
 	if fields["furn18"] then
@@ -296,6 +298,16 @@ then
 	if fields["furn35"] then
 		make_ok = "0"
 		shape = "myappliances:hotwater_heater"
+		if inv:is_empty("plastic") or
+		   inv:is_empty("copper") or
+		   inv:is_empty("steel") then
+			return
+		end
+	end
+
+	if fields["furn36"] then
+		make_ok = "0"
+		shape = "myappliances:bathroom_light"
 		if inv:is_empty("plastic") or
 		   inv:is_empty("copper") or
 		   inv:is_empty("steel") then

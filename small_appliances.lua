@@ -70,3 +70,22 @@ core.register_node("myappliances:microwave", {
 		}
 	}
 })
+--Bathroom Light
+core.register_node("myappliances:bathroom_light", {
+	description = "Bathroom Light",
+	tiles = {
+			"myappliances_bathroom_light.png",
+			},
+	drawtype = "mesh",
+	mesh = "myappliances_bathroom_light.obj",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	light_source = 14,
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.25, 0.5, 0.1875, 0.3125},
+		}
+	}
+})
