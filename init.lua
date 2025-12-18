@@ -328,11 +328,19 @@ local sound_playing = false
 
 local function play_music(player)
 	  local track = tostring(math.random(6))
+	if player ~= nil then
       player_handles[player] = core.sound_play({name = track}, {pos = pos, gain = 1.0, max_hear_distance = 10, loop = false})
+   	else
+   		return
+    end
 end
 
 local function music_stop(player)
-   core.sound_stop(player_handles[player])
+	if player ~= nil then
+   		core.sound_stop(player_handles[player])
+   	else
+   		return
+   	end
 end
 core.register_node("myappliances:stereo_on", {
 	description = "Stereo",
@@ -356,18 +364,23 @@ core.register_node("myappliances:stereo_on", {
 		if speakers == nil then 
 			return 
 		end
-
+core.chat_send_all(tostring(sound_playing))
 		if speakers and sound_playing == false then
 			play_music(clicker)
 			sound_playing = true
 		else
-			music_stop(clicker)
-			sound_playing = false
+			if sound_playing == true then
+				music_stop(clicker)
+				sound_playing = false
+			else
+				return
+			end
 		end
-			
 	end,
 	on_punch = function(pos, node, puncher, pointed_thing)
+		if sound_playing == true then
 			music_stop(puncher)
+		end
 			core.set_node(pos,{name = "myappliances:stereo", param2 = node.param2})
 	end
 })
