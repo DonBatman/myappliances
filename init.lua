@@ -1,7 +1,66 @@
 dofile(core.get_modpath("myappliances").."/machine.lua")
 dofile(core.get_modpath("myappliances").."/small_appliances.lua")
+dofile(core.get_modpath("myappliances").."/stove.lua")
 
---Dishwasher
+
+
+function core.get_myappliances_fridge(pos)
+    local spos = pos.x .. "," .. pos.y .. "," ..pos.z
+    local formspec =
+        "size[9,7]"..
+		"background[-0.15,-0.25;9.3,7.75;myfurniture_background.png]"..
+        "list[nodemeta:".. spos .. ";main;0.5,0.5;8,2;]"..
+        "list[current_player;main;0.5,3;8,4;]"
+    return formspec
+end
+function core.get_myappliances_freezer(pos)
+    local spos = pos.x .. "," .. pos.y .. "," ..pos.z
+    local formspec =
+        "size[9,7]"..
+		"background[-0.15,-0.25;9.3,7.75;myfurniture_background.png]"..
+        "list[nodemeta:".. spos .. ";main;0.5,0.5;8,1;]"..
+        "list[current_player;main;0.5,3;8,4;]"
+    return formspec
+end
+
+--[[Dishwasher
+core.register_node("myappliances:dishwasher", {
+	description = "Dishwasher",
+	tiles = {
+			"myappliances_dishwasher.png",
+			},
+	drawtype = "mesh",
+	mesh = "myappliances_dishwasher.obj",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+		},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos, {name = "myappliances:dishwasher_open", param2 = node.param2})
+	end
+})
+core.register_node("myappliances:dishwasher_open", {
+	description = "Dishwasher",
+	tiles = {
+			"myappliances_dishwasher.png",
+			},
+	drawtype = "mesh",
+	mesh = "myappliances_dishwasher_open.obj",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+		},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos, {name = "myappliances:dishwasher", param2 = node.param2})
+	end	
+})
+--]]
 core.register_node("myappliances:dishwasher", {
 	description = "Dishwasher",
 	tiles = {
@@ -17,24 +76,7 @@ core.register_node("myappliances:dishwasher", {
 	paramtype2 = "facedir",
 	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1},
 })
---Stove
-core.register_node("myappliances:stove", {
-	description = "Stove",
-	tiles = {
-			"myappliances_stove.png",
-			},
-	drawtype = "mesh",
-	mesh = "myappliances_stove.obj",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-		}
-	}
-})
+
 --Fridge
 core.register_node("myappliances:fridge", {
 	description = "Fridge",
@@ -50,6 +92,13 @@ core.register_node("myappliances:fridge", {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, 1.5, 0.5},
 		},
+	on_construct = function(pos)
+        local meta = core.get_meta(pos)
+        meta:set_string("infotext", "Fridge")
+        meta:set_string("owner", "")
+        local inv = meta:get_inventory()
+        inv:set_size("main", 9*7)
+    end,
 	
 on_place = function(itemstack, placer, pointed_thing)
         local pos = pointed_thing.above
@@ -58,6 +107,44 @@ on_place = function(itemstack, placer, pointed_thing)
             return
         end
         return core.item_place(itemstack, placer, pointed_thing)
+    end,
+
+    can_dig = function(pos,player)
+
+		local meta = core.get_meta({x=pos.x,y=pos.y+1,z=pos.z});
+		local inv = meta:get_inventory()
+		if not inv:is_empty("ingot") then
+			return false
+		elseif not inv:is_empty("res") then
+			return false
+		end
+        local meta = core.get_meta(pos);
+        local inv = meta:get_inventory()
+
+        return inv:is_empty("main")
+    end,
+    allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+        local meta = core.get_meta(pos)
+
+        return count
+    end,
+    allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+        local meta = core.get_meta(pos)
+        return stack:get_count()
+    end,
+    allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+        local meta = core.get_meta(pos)
+        return stack:get_count()
+    end,
+
+    on_rightclick = function(pos, node, clicker)
+        local meta = core.get_meta(pos)
+    	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
+            core.show_formspec(
+                clicker:get_player_name(),
+                "myappliances:"..spos.."_fridge",
+                core.get_myappliances_fridge(pos)
+            )
     end,
 })
 
@@ -77,6 +164,51 @@ core.register_node("myappliances:freezer", {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.1875, 0.5, 0.5, 0.5},
 		},
+	on_construct = function(pos)
+        local meta = core.get_meta(pos)
+        meta:set_string("infotext", "Freezer")
+        meta:set_string("owner", "")
+        local inv = meta:get_inventory()
+        inv:set_size("main", 9*7)
+    end,
+
+    can_dig = function(pos,player)
+
+		local meta = core.env:get_meta({x=pos.x,y=pos.y+1,z=pos.z});
+		local inv = meta:get_inventory()
+		if not inv:is_empty("ingot") then
+			return false
+		elseif not inv:is_empty("res") then
+			return false
+		end
+        local meta = core.get_meta(pos);
+        local inv = meta:get_inventory()
+
+        return inv:is_empty("main")
+    end,
+    allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+        local meta = core.get_meta(pos)
+
+        return count
+    end,
+    allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+        local meta = core.get_meta(pos)
+        return stack:get_count()
+    end,
+    allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+        local meta = core.get_meta(pos)
+        return stack:get_count()
+    end,
+
+    on_rightclick = function(pos, node, clicker)
+        local meta = core.get_meta(pos)
+    	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
+            core.show_formspec(
+                clicker:get_player_name(),
+                "myappliances:"..spos.."_freezer",
+                core.get_myappliances_freezer(pos)
+            )
+    end,
 })
 --TV
 core.register_node("myappliances:tv", {
@@ -95,7 +227,33 @@ core.register_node("myappliances:tv", {
 		fixed = {
 			{-0.5, -0.5, 0.375, 0.5, 0.375, 0.5},
 		},
-	}
+	},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos, {name = "myappliances:tv_on", param2 = node.param2})
+	end
+})
+--TV On
+core.register_node("myappliances:tv_on", {
+	description = "TV",
+	tiles = {
+			{name="myappliances_tv_on.png", animation={type="vertical_frames",
+											aspect_w=16, aspect_h=16, length=0.8}},
+			},
+	drawtype = "mesh",
+	mesh = "myappliances_tv.obj",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1},
+	
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, 0.375, 0.5, 0.375, 0.5},
+		},
+	},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos, {name = "myappliances:tv", param2 = node.param2})
+	end
 })
 --TV w Stand
 core.register_node("myappliances:tv_w_stand", {
@@ -114,7 +272,33 @@ core.register_node("myappliances:tv_w_stand", {
 		fixed = {
 			{-0.5, -0.5, 0, 0.5, 0.375, 0.15},
 		},
-	}
+	},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos, {name = "myappliances:tv_w_stand_on", param2 = node.param2})
+	end
+})
+--TV wit stand On
+core.register_node("myappliances:tv_w_stand_on", {
+	description = "TV",
+	tiles = {
+			{name="myappliances_tv_on.png", animation={type="vertical_frames",
+											aspect_w=16, aspect_h=16, length=0.8}},
+			},
+	drawtype = "mesh",
+	mesh = "myappliances_tv_with_stand.obj",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1},
+	
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, 0.375, 0.5, 0.375, 0.5},
+		},
+	},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos, {name = "myappliances:tv_w_stand", param2 = node.param2})
+	end
 })
 --Stereo
 core.register_node("myappliances:stereo", {
@@ -134,6 +318,58 @@ core.register_node("myappliances:stereo", {
 			{-0.375, -0.5, -0.375, 0.375, 0, 0.375},
 		},
 	},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos,{name = "myappliances:stereo_on", param2 = node.param2})
+	end,
+})
+
+local player_handles = {}
+local sound_playing = false
+
+local function play_music(player)
+	  local track = tostring(math.random(6))
+      player_handles[player] = core.sound_play({name = track}, {pos = pos, gain = 1.0, max_hear_distance = 10, loop = false})
+end
+
+local function music_stop(player)
+   core.sound_stop(player_handles[player])
+end
+core.register_node("myappliances:stereo_on", {
+	description = "Stereo",
+	tiles = {
+			"myappliances_stereo_on.png",
+			},
+	drawtype = "mesh",
+	mesh = "myappliances_stereo.obj",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=0},
+	
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.5, -0.375, 0.375, 0, 0.375},
+		},
+	},
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		local speakers = core.find_node_near(pos, 5, "myappliances:speaker", false)
+		if speakers == nil then 
+			return 
+		end
+
+		if speakers and sound_playing == false then
+			play_music(clicker)
+			sound_playing = true
+		else
+			music_stop(clicker)
+			sound_playing = false
+		end
+			
+	end,
+	on_punch = function(pos, node, puncher, pointed_thing)
+			music_stop(puncher)
+			core.set_node(pos,{name = "myappliances:stereo", param2 = node.param2})
+	end
 })
 
 --Floor Speakers
@@ -242,6 +478,32 @@ core.register_node("myappliances:computer", {
 		{-0.375, -0.5, -0.125, 0.375, 0.5, 0.375},
 		}
 	},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos, {name = "myappliances:computer_on", param2 = node.param2})
+	end
+})
+
+--Computer On
+core.register_node("myappliances:computer_on", {
+	description = "Computer",
+	tiles = {
+			"myappliances_computer_on.png",
+			},
+	drawtype = "mesh",
+	mesh = "myappliances_computer.obj",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1},
+
+	selection_box = {
+	type = "fixed",
+	fixed = {
+		{-0.375, -0.5, -0.125, 0.375, 0.5, 0.375},
+		}
+	},
+	on_punch = function(pos, node, puncher, pointed_thing)
+		core.set_node(pos, {name = "myappliances:computer", param2 = node.param2})
+	end
 })
 
 --Hotwater Heater
