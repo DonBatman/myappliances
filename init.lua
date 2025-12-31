@@ -10,7 +10,9 @@ function core.get_myappliances_fridge(pos)
         "size[9,7]"..
 		"background[-0.15,-0.25;9.3,7.75;myfurniture_background.png]"..
         "list[nodemeta:".. spos .. ";main;0.5,0.5;8,2;]"..
-        "list[current_player;main;0.5,3;8,4;]"
+        "list[current_player;main;0.5,3;8,4;]"..
+        "listring[nodemeta:" .. spos .. ";main]" ..
+        "listring[current_player;main]"
     return formspec
 end
 function core.get_myappliances_freezer(pos)
@@ -19,7 +21,9 @@ function core.get_myappliances_freezer(pos)
         "size[9,7]"..
 		"background[-0.15,-0.25;9.3,7.75;myfurniture_background.png]"..
         "list[nodemeta:".. spos .. ";main;0.5,0.5;8,1;]"..
-        "list[current_player;main;0.5,3;8,4;]"
+        "list[current_player;main;0.5,3;8,4;]"..
+        "listring[nodemeta:" .. spos .. ";main]" ..
+        "listring[current_player;main]"
     return formspec
 end
 
@@ -351,7 +355,7 @@ core.register_node("myappliances:stereo_on", {
 	mesh = "myappliances_stereo.obj",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=0},
+	groups = {cracky = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1},
 	
 	selection_box = {
 		type = "fixed",
