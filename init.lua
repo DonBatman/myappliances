@@ -642,3 +642,23 @@ core.register_craft({
     }
 })
 
+lucky_block:add_blocks({
+	{"dro", {"myappliances:dishwasher"}, 1},
+	{"dro", {"myappliances:fridge"}, 1},
+	{"dro", {"myappliances:freezer"}, 1},
+	{"dro", {"myappliances:tv"}, 1},
+	{"dro", {"myappliances:tv_w_stand"}, 1},
+	{"dro", {"myappliances:stereo"}, 1},
+	{"dro", {"myappliances:speaker"}, 2},
+	{"dro", {"myappliances:washer"}, 1},
+	{"dro", {"myappliances:dryer"}, 1},
+	{"dro", {"myappliances:watercooler"}, 1},
+	{"dro", {"myappliances:computer"}, 1},
+	{"dro", {"myappliances:hotwater_heater"}, 1},
+	{"dro", {"myappliances:furnace"}, 1},
+	{"dro", {"myappliances:stove"}, 1},
+	{"dro", {"myappliances:toaster"}, 1},
+	{"dro", {"myappliances:airfryer"}, 1},
+	{"dro", {"myappliances:coffeemaker"}, 1},
+	{"dro", {"myappliances:microwave"}, 1},
+})
